@@ -1,8 +1,21 @@
+import 'package:fakestoreapp/ui/providers/counter_model.dart';
 import 'package:fakestoreapp/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CounterModel()),
+      ],
+      child: const MyApp(),
+    ),
+  );
+   FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {
