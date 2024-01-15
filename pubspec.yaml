@@ -1,5 +1,5 @@
 name: fakestoreapp
-description: "A new Flutter project."
+description: "Includes clean architecture made with Flutter"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -36,6 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.1.1
   flutter_native_splash: ^2.3.9
+  flutter_i18n: ^0.35.0
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 #Flutter Native Splash
 flutter_native_splash:
@@ -61,6 +65,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
