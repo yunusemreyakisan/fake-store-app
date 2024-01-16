@@ -15,40 +15,45 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     // Fetch product data when the state object is inserted into the tree.
-    final productViewModel = Provider.of<UserViewModel>(context, listen: false);
-    productViewModel.fetchUsers();
+    final productViewModel =
+        Provider.of<ProductViewModel>(context, listen: false);
+    productViewModel.fetchAllProducts();
   }
 
   @override
   Widget build(BuildContext context) {
-    final userViewModel = Provider.of<UserViewModel>(context);
+    final productViewModel = Provider.of<ProductViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Products'),
       ),
-      body: userViewModel.loading
+      body: productViewModel.loading
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : userViewModel.errorMessage.isNotEmpty
+          : productViewModel.errorMessage.isNotEmpty
               ? Center(
-                  child: Text(userViewModel.errorMessage),
+                  child: Text(productViewModel.errorMessage),
                 )
               : ListView.builder(
-                  itemCount: userViewModel.users.length,
+                  itemCount: productViewModel.products.length,
                   itemBuilder: (context, index) {
-                    final user = userViewModel.users[index];
+                    final product = productViewModel.products[index];
 
                     // Display a list of users with their name, email, and ID.
-                    return ListTile(
-                      title: Text(user.name!),
-                      subtitle: Text(user.website!),
-                      leading: CircleAvatar(
-                        child: Text(user.id.toString()),
-                      ),
-                    );
-                  },
-                ),
+                    return ProductCard(product.images![0]);
+                  }),
     );
   }
+}
+
+//TODO: Card yaz olmazsa farklı bir API bul.
+Widget ProductCard(String? productImage) {
+  return Card(
+    clipBehavior: Clip.hardEdge,
+    color: Colors.black26,
+    child: Center(
+      child: Image.network(productImage!),
+    ),
+  );
 }

@@ -1,1 +1,1 @@
-const baseUrl = 'https://jsonplaceholder.typicode.com/users';
+const baseUrl = 'https://api.escuelajs.co/api/v1/products';

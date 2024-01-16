@@ -1,29 +1,31 @@
-import 'package:fakestoreapp/data/models/models.dart';
-import 'package:fakestoreapp/data/repositories/repository.dart';
+import 'package:fakestoreapp/data/models/product.dart';
+import 'package:fakestoreapp/data/repositories/product_repository.dart';
 import 'package:fakestoreapp/utils/logger.dart';
 import 'package:flutter/material.dart';
 
-class UserViewModel extends ChangeNotifier {
-  final UserRepository userRepository;
+class ProductViewModel extends ChangeNotifier {
+  final ProductRepository repository;
 
-  UserViewModel({required this.userRepository});
+  ProductViewModel({required this.repository});
 
-  List<User> _users = [];
+  List<Product> _products = [];
+  Product _singleProduct = Product();
   bool _loading = false;
   String _errorMessage = '';
 
-  List<User> get users => _users;
+  List<Product> get products => _products;
+  Product get singleProduct => _singleProduct;
   bool get loading => _loading;
   String get errorMessage => _errorMessage;
 
-  //Fetch user method
-  Future<void> fetchUsers() async {
+  //Fetch all products method
+  Future<void> fetchAllProducts() async {
     _loading = true;
     _errorMessage = '';
 
     try {
       // Call the getUsers() method from the ProductRepository to fetch product data from the API.
-      _users = await userRepository.getUsers();
+      _products = await repository.getAllProducts();
     } catch (e) {
       Logger.getInstance().log(e.toString());
       // If an exception occurs during the API call, set the error message to display the error.
