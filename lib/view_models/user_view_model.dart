@@ -9,12 +9,10 @@ class ProductViewModel extends ChangeNotifier {
   ProductViewModel({required this.repository});
 
   List<Product> _products = [];
-  Product _singleProduct = Product();
   bool _loading = false;
   String _errorMessage = '';
 
   List<Product> get products => _products;
-  Product get singleProduct => _singleProduct;
   bool get loading => _loading;
   String get errorMessage => _errorMessage;
 

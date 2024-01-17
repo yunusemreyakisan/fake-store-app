@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:fakestoreapp/view_models/user_view_model.dart';
+import 'package:fakestoreapp/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +28,17 @@ class _HomeScreenState extends State<HomeScreen> {
     final productViewModel = Provider.of<ProductViewModel>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Products'),
+        centerTitle: false,
+        title: const Text(
+          'Products',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Icon(Icons.shopping_bag),
+          ),
+        ],
       ),
       body: productViewModel.loading
           ? const Center(
@@ -41,19 +54,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     final product = productViewModel.products[index];
 
                     // Display a list of users with their name, email, and ID.
-                    return ProductCard(product.images![0]);
-                  }),
+                    return ProductCard(
+                      imageUrl: product.images![0],
+                      title: product.title!,
+                      description: product.description!,
+                      onPressed: () {
+                        log(index.toString());
+                      },
+                    );
+                  },
+                ),
     );
   }
-}
-
-//TODO: Card yaz olmazsa farklı bir API bul.
-Widget ProductCard(String? productImage) {
-  return Card(
-    clipBehavior: Clip.hardEdge,
-    color: Colors.black26,
-    child: Center(
-      child: Image.network(productImage!),
-    ),
-  );
 }
