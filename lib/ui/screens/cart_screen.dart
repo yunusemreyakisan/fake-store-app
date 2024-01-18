@@ -1,6 +1,8 @@
+import 'package:fakestoreapp/ui/screens/home_screen.dart';
 import 'package:fakestoreapp/utils/extensions.dart';
 import 'package:fakestoreapp/view_models/product_viewmodel.dart';
 import 'package:fakestoreapp/widgets/cart_product.dart';
+import 'package:fakestoreapp/widgets/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,22 +21,34 @@ class CartScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: ListView.builder(
-          itemCount: productViewModel.cartProducts.length,
-          itemBuilder: (context, index) {
-            final product = productViewModel.cartProducts[index];
-            //Returning Cart Product Card
-            return CartProductCard(
-              title: product.name!,
-              description: product.description!,
-              onPressed: () {
-                productViewModel.removeProduct(product);
-                showToast("Removed product : ${product.name}");
-              },
-            );
-          },
-        ),
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+        child: productViewModel.cartProducts.isEmpty
+            ? Center(
+                child: EmptyState(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                    );
+                  },
+                ),
+              )
+            : ListView.builder(
+                itemCount: productViewModel.cartProducts.length,
+                itemBuilder: (context, index) {
+                  final product = productViewModel.cartProducts[index];
+                  //Returning Cart Product Card
+                  return CartProductCard(
+                    product: product,
+                    onPressed: () {
+                      productViewModel.removeProduct(product);
+                      showToast("Removed product : ${product.name}");
+                    },
+                  );
+                },
+              ),
       ),
     );
   }

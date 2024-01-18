@@ -15,33 +15,33 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  flutter_native_splash: ^2.3.9
-  dio: ^5.4.0
-  provider: ^6.1.1
-  carousel_slider: ^4.2.1
-  bottom_sheet: ^4.0.0
-  readmore: ^2.2.0
-  fluttertoast: ^8.2.4
-  device_preview: ^1.1.0
-  adaptive_theme: ^3.5.0
-  flutter_rating_bar: ^4.0.1
+  flutter_native_splash: ^2.3.9 #for native splash screen
+  dio: ^5.4.0 #for API call
+  provider: ^6.1.1 #for state management
+  readmore: ^2.2.0 #for long sentences
+  fluttertoast: ^8.2.4 #for toast message
+  device_preview: ^1.1.0 #for preview on different devices
+  adaptive_theme: ^3.5.0 #for theme changes
+  flutter_rating_bar: ^4.0.1 #for rating star
 
+#Flutter Splash Screen Configuration
 flutter_native_splash:
   android: true
   ios: true
   web: false
   color: "#ffffff"
-  image: assets/images/logo.png
+  image: assets/logo.png
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+
 flutter:
   generate: true
   uses-material-design: true
   assets:
-    - assets/images/
-    - assets/icons/
+    - assets/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

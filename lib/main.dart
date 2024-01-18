@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Fake Magazam',
       theme: context.isDarkMode
           ? ThemeData(colorScheme: darkColorScheme)

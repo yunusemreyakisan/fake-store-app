@@ -1,6 +1,5 @@
 import 'package:fakestoreapp/data/models/product.dart';
 import 'package:fakestoreapp/data/repositories/product_repository.dart';
-import 'package:fakestoreapp/utils/logger.dart';
 import 'package:flutter/material.dart';
 
 class ProductViewModel extends ChangeNotifier {
@@ -9,10 +8,9 @@ class ProductViewModel extends ChangeNotifier {
   ProductViewModel({required this.repository});
 
   List<Product> _products = [];
+  final List<Product> _cartProducts = [];
   bool _loading = false;
   String _errorMessage = '';
-
-  List<Product> _cartProducts = [];
 
   List<Product> get products => _products;
   List<Product> get cartProducts => _cartProducts;
@@ -27,7 +25,6 @@ class ProductViewModel extends ChangeNotifier {
     try {
       _products = await repository.getAllProducts();
     } catch (e) {
-      Logger.getInstance().log(e.toString());
       _errorMessage = 'Failed to fetch products';
     } finally {
       _loading = false;

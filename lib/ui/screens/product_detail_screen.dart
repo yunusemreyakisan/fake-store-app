@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:fakestoreapp/data/models/product.dart';
-import 'package:fakestoreapp/ui/screens/cart_screen.dart';
 import 'package:fakestoreapp/utils/extensions.dart';
 import 'package:fakestoreapp/view_models/product_viewmodel.dart';
 import 'package:fakestoreapp/widgets/card_price_container.dart';

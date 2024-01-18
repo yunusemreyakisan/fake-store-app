@@ -1,9 +1,6 @@
-import 'dart:developer';
 import 'package:fakestoreapp/ui/screens/cart_screen.dart';
 import 'package:fakestoreapp/ui/screens/product_detail_screen.dart';
-import 'package:fakestoreapp/utils/extensions.dart';
 import 'package:fakestoreapp/view_models/product_viewmodel.dart';
-import 'package:fakestoreapp/widgets/cart_product.dart';
 import 'package:fakestoreapp/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

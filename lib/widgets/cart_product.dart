@@ -1,25 +1,27 @@
 import 'dart:math';
+import 'package:fakestoreapp/data/models/product.dart';
 import 'package:flutter/material.dart';
 
 class CartProductCard extends StatelessWidget {
-  final String title, description;
+  final Product product;
   final VoidCallback onPressed;
 
-  const CartProductCard(
-      {super.key,
-      required this.title,
-      required this.description,
-      required this.onPressed});
+  const CartProductCard({
+    super.key,
+    required this.product,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          //Colored Product Image
           SizedBox(
-              width: MediaQuery.of(context).size.width * 0.3,
+              width: MediaQuery.of(context).size.width * 0.2,
               child: Container(
                   height: MediaQuery.sizeOf(context).height / 10,
                   color: Colors
@@ -29,17 +31,17 @@ class CartProductCard extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+              padding: const EdgeInsets.only(left: 10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    product.name!,
                     style: const TextStyle(fontWeight: FontWeight.w700),
                   ),
                   Text(
-                    description,
+                    product.description!,
                     maxLines: 4,
                   )
                 ],
@@ -47,12 +49,10 @@ class CartProductCard extends StatelessWidget {
             ),
           ),
 
-          //Icon
-          Center(
-            child: IconButton(
-              icon: const Icon(Icons.remove),
-              onPressed: onPressed,
-            ),
+          // Remove Item
+          IconButton(
+            icon: const Icon(Icons.remove),
+            onPressed: onPressed,
           ),
         ],
       ),
