@@ -14,7 +14,7 @@ class ProductRepository {
       return data.map((json) => Product.fromJson(json)).toList();
     } catch (e) {
       Logger.getInstance().log(e.toString());
-      throw Exception('Failed to fetch product');
+      throw Exception('Failed to fetch products');
     }
   }
 }

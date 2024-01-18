@@ -1,1 +1,1 @@
-const baseUrl = 'https://api.escuelajs.co/api/v1/products';
+const baseUrl = 'https://fake-store-api.mock.beeceptor.com/api/products';

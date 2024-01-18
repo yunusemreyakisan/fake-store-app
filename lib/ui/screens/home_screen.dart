@@ -1,6 +1,9 @@
 import 'dart:developer';
-
-import 'package:fakestoreapp/view_models/user_view_model.dart';
+import 'package:fakestoreapp/ui/screens/cart_screen.dart';
+import 'package:fakestoreapp/ui/screens/product_detail_screen.dart';
+import 'package:fakestoreapp/utils/extensions.dart';
+import 'package:fakestoreapp/view_models/product_viewmodel.dart';
+import 'package:fakestoreapp/widgets/cart_product.dart';
 import 'package:fakestoreapp/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,45 +28,66 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final productViewModel = Provider.of<ProductViewModel>(context);
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: const Text(
-          'Products',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Icon(Icons.shopping_bag),
-          ),
-        ],
-      ),
-      body: productViewModel.loading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : productViewModel.errorMessage.isNotEmpty
-              ? Center(
-                  child: Text(productViewModel.errorMessage),
-                )
-              : ListView.builder(
-                  itemCount: productViewModel.products.length,
-                  itemBuilder: (context, index) {
-                    final product = productViewModel.products[index];
-
-                    // Display a list of users with their name, email, and ID.
-                    return ProductCard(
-                      imageUrl: product.images![0],
-                      title: product.title!,
-                      description: product.description!,
-                      onPressed: () {
-                        log(index.toString());
-                      },
+    return Consumer<ProductViewModel>(
+      builder: (context, productViewModel, child) {
+        return Scaffold(
+          appBar: AppBar(
+            centerTitle: false,
+            title: const Text(
+              'Products',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: IconButton(
+                  icon: const Icon(Icons.shopping_basket),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CartScreen(),
+                      ),
                     );
                   },
                 ),
+              ),
+            ],
+          ),
+          body: productViewModel.loading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : productViewModel.errorMessage.isNotEmpty
+                  ? Center(
+                      child: Text(productViewModel.errorMessage),
+                    )
+                  : ListView.builder(
+                      itemCount: productViewModel.products.length,
+                      itemBuilder: (context, index) {
+                        final product = productViewModel.products[index];
+
+                        // Display a list of products with their name, email, and ID.
+                        return ProductCard(
+                          title: product.name!,
+                          description: product.description!,
+                          price: '₺ ${product.price!}',
+                          rating: product.rating!,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductDetailScreen(
+                                  product: product,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+        );
+      },
     );
   }
 }

@@ -1,49 +1,68 @@
-import 'package:fakestoreapp/data/models/category.dart';
+import 'package:fakestoreapp/data/models/review.dart';
 
 class Product {
-  int? id;
-  String? title;
-  int? price;
+  int? productid;
+  String? name;
   String? description;
-  List<String>? images;
-  String? creationAt;
-  String? updatedAt;
-  Category? category;
+  double? price;
+  String? unit;
+  String? image;
+  int? discount;
+  bool? availability;
+  String? brand;
+  String? category;
+  double? rating;
+  List<Review?>? reviews;
 
   Product(
-      {this.id,
-      this.title,
-      this.price,
+      {this.productid,
+      this.name,
       this.description,
-      this.images,
-      this.creationAt,
-      this.updatedAt,
-      this.category});
+      this.price,
+      this.unit,
+      this.image,
+      this.discount,
+      this.availability,
+      this.brand,
+      this.category,
+      this.rating,
+      this.reviews});
 
   Product.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    price = json['price'];
+    productid = json['product_id'];
+    name = json['name'];
     description = json['description'];
-    images = json['images'].cast<String>();
-    creationAt = json['creationAt'];
-    updatedAt = json['updatedAt'];
-    category =
-        json['category'] != null ? Category.fromJson(json['category']) : null;
+    price = json['price'];
+    unit = json['unit'];
+    image = json['image'];
+    discount = json['discount'];
+    availability = json['availability'];
+    brand = json['brand'];
+    category = json['category'];
+    rating = json['rating'];
+    if (json['reviews'] != null) {
+      reviews = <Review>[];
+      json['reviews'].forEach((v) {
+        reviews!.add(Review.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['title'] = title;
-    data['price'] = price;
+    data['product_id'] = productid;
+    data['name'] = name;
     data['description'] = description;
-    data['images'] = images;
-    data['creationAt'] = creationAt;
-    data['updatedAt'] = updatedAt;
-    if (category != null) {
-      data['category'] = category!.toJson();
-    }
+    data['price'] = price;
+    data['unit'] = unit;
+    data['image'] = image;
+    data['discount'] = discount;
+    data['availability'] = availability;
+    data['brand'] = brand;
+    data['category'] = category;
+    data['rating'] = rating;
+    data['reviews'] =
+        reviews != null ? reviews!.map((v) => v?.toJson()).toList() : null;
     return data;
   }
 }
